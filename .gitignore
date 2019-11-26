@@ -1,6 +1,5 @@
 #Others
 main.c
-*.txt
 
 #vim files
 *.swo
