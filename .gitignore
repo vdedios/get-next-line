@@ -1,3 +1,11 @@
+#Others
+main.c
+*.txt
+
+#vim files
+*.swo
+*.swp
+
 # Prerequisites
 *.d
 
