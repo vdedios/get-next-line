@@ -15,7 +15,7 @@ int	ft_analyse(char *buffer)
 	return (0);
 }
 
-char	*ft_realloc_content(char *buffer, char **line)
+char	*ft_realloc_content(char *line, char *buffer)
 {
 	int	i;
 	int	j;
@@ -25,12 +25,12 @@ char	*ft_realloc_content(char *buffer, char **line)
 	j = 0;
 	while (buffer[i])
 		i++;
-	while ((*line)[j])
+	while (line[j])
 		j++;	
 	if (!(new_str =(char *)malloc( (i + j + 1) * sizeof(char))))
 		return (NULL);	
-	while (**line)
-		*new_str++ = *(*line)++;
+	while (*line)
+		*new_str++ = *line++;
 	while (*buffer)
 		*new_str++ = *buffer++; 
 	*new_str = '\0';
@@ -42,11 +42,14 @@ void	ft_cut_line(char *buffer, char **line, char *remain_str)
 	int i;
 
 	i = 0;
-	while (*buffer != '\n')
-		remain_str[i++] = *buffer++;
-	remain_str[i] = '\0';
-	*line = ft_realloc_content(remain_str, line);		
-	buffer++;
+	remain_str = ft_realloc_content(*line, "");
+	*line = ft_realloc_content("", "");
+	buffer = ft_realloc_content(remain_str, buffer);
+	while (buffer[i] != '\n')
+		i++;
+	buffer[i] = '\0';
+	*line = ft_realloc_content(buffer, "");	
+	buffer = &buffer[i + 1];
 	while (*buffer)
 		*remain_str++ = *buffer++;	
 	*remain_str = '\0';
