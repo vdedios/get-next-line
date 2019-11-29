@@ -2,10 +2,10 @@
 
 int	get_next_line(int fd, char **line)
 {
-	ssize_t		rd_status;
-	char		*buffer;
+	ssize_t			rd_status;
+	char			*buffer;
 	static char 	remain_str[BUFFER_SIZE];
-	int		readen;
+	int				readen;
 	
 	*line = remain_str;
 	readen = 1;
