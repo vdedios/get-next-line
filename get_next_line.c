@@ -6,7 +6,7 @@
 /*   By: vde-dios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 18:21:25 by vde-dios          #+#    #+#             */
-/*   Updated: 2019/11/29 23:15:22 by vde-dios         ###   ########.fr       */
+/*   Updated: 2019/11/29 23:18:24 by vde-dios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,7 @@ int	get_next_line(int fd, char **line)
 	return (ft_returns(rd_status, remain_str));
 }
 
-//terminar de chequear liberación de memoria al hacer reallocs
+//Terminar de chequear liberación de memoria al hacer reallocs
+//Chequear returns para que imprima última linea
+//Lectura de mútiples fd
+//Pasar tests
