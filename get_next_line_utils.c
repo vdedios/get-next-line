@@ -6,7 +6,7 @@
 /*   By: vde-dios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 18:21:58 by vde-dios          #+#    #+#             */
-/*   Updated: 2019/11/29 18:22:01 by vde-dios         ###   ########.fr       */
+/*   Updated: 2019/11/29 19:05:32 by vde-dios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ void	ft_cut_line(char *buffer, char **line, char *remain_str)
 	int i;
 
 	i = 0;
-	remain_str = ft_realloc_content(*line, "");
-	*line = ft_realloc_content("", "");
-	buffer = ft_realloc_content(remain_str, buffer);
+	buffer = ft_realloc_content(*line, buffer);
 	while (buffer[i] != '\n')
 		i++;
 	buffer[i] = '\0';
