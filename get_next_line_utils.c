@@ -6,7 +6,7 @@
 /*   By: vde-dios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 18:21:58 by vde-dios          #+#    #+#             */
-/*   Updated: 2019/11/29 19:05:32 by vde-dios         ###   ########.fr       */
+/*   Updated: 2019/11/29 23:12:53 by vde-dios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_analyse(char *buffer)
 	int i;
 	
 	i = 0;
-	while (i < BUFFER_SIZE)
+	while (buffer[i])
 		if (buffer[i++] == '\n')
 			return (1);
 	return (0);
