@@ -61,8 +61,6 @@ void	ft_cut_line(char *buffer, char **line, char *remain_str)
 	*line = ft_realloc_content(buffer, "");	
 	buffer = &buffer[i + 1];
 	while (*buffer)
-		//chequear por qué esta linea no funciona bien con remain. si
-		//lo pongo como contador me salta unos caracteres
 		*remain_str++ = *buffer++;	
 	*remain_str = '\0';
 } 

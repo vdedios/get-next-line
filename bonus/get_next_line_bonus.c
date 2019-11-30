@@ -45,7 +45,6 @@ int	get_next_line(int fd, char **line)
 	char			*buffer;
 	static char 	remain_str[4096][BUFFER_SIZE];
 
-	printf("-remain: %s", remain_str[4]);
 	*line = remain_str[fd];
 	rd_status = 0;
 	if(!(buffer = malloc((BUFFER_SIZE + 1) * sizeof(char))))
@@ -62,8 +61,8 @@ int	get_next_line(int fd, char **line)
 		*line = ft_realloc_content(*line, buffer); 
 	}
 	if (!rd_status)
-	{
 		ft_manage_remainstr(remain_str[fd], &buffer, line);
-	}
 	return (ft_returns(rd_status, remain_str[fd], *line));
 }
+
+//Pasar tests
