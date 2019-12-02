@@ -19,13 +19,8 @@ static	int	ft_returns(ssize_t rd_status, char *remain_str, char *line)
 	if (rd_status)
 		return (1);
 	if (!rd_status)
-	{
-		if (!remain_str && !line)
+		if (remain_str == line)
 			return (0);
-		if (remain_str)
-			if (!*remain_str && !*line)
-				return (0);
-	}
 	return (1); 
 }
 
@@ -33,6 +28,20 @@ static	void	ft_free_memory(char **p)
 {
 	*p = ft_realloc_content("", "");
 	free(*p);
+}
+
+static void	ft_remain(char **remain_str, char *buffer, char **line, int fd)
+{
+	if (*line)
+	{
+		if (ft_analyse(remain_str[fd]))
+			remain_str[fd] = ft_cut_line(buffer, line);	
+		else if (**line)
+		{
+			*line = ft_realloc_content(*line, "");
+			remain_str[fd] = ft_realloc_content("", "");
+		}
+	}
 }
 
 int	get_next_line(int fd, char **line)
@@ -51,15 +60,15 @@ int	get_next_line(int fd, char **line)
 		buffer[rd_status] = '\0';
 		if (ft_analyse(buffer))
 		{
-			remain_str[fd] = ft_cut_line (buffer, line);
+			remain_str[fd] = ft_cut_line(buffer, line);
 			ft_free_memory(&buffer);
 			return (ft_returns(rd_status, remain_str[fd], *line));
 		}
 		*line = ft_realloc_content(*line, buffer); 
 	}
+	*buffer = 0;
 	if (!rd_status)
-		if (ft_analyse(remain_str[fd]))
-			remain_str[fd] = ft_cut_line(buffer, line);	
+		ft_remain(remain_str, buffer, line, fd);
 	ft_free_memory(&buffer);
 	return (ft_returns(rd_status, remain_str[fd], *line));
 }

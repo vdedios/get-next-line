@@ -64,11 +64,9 @@ char	*ft_cut_line(char *buffer, char **line)
 		i++;
 	while (buffer[j])
 		j++;
-	if (j < i)
-		buffer[0] = '\0';
-	else	
-		buffer[i] = '\0';
+	buffer[i] = '\0';
 	*line = ft_realloc_content(buffer, "");	
-	buffer = &buffer[i + 1];
-	return (ft_realloc_content(buffer, ""));
+	if (j - 1 ==  i)
+		return (ft_realloc_content("", ""));
+	return (ft_realloc_content(&buffer[i + 1], ""));
 } 
