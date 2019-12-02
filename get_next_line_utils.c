@@ -21,9 +21,10 @@ int	ft_analyse(char *buffer)
 	int i;
 	
 	i = 0;
-	while (buffer[i])
-		if (buffer[i++] == '\n')
-			return (1);
+	if (buffer)
+		while (buffer[i])
+			if (buffer[i++] == '\n')
+				return (1);
 	return (0);
 }
 
@@ -35,34 +36,39 @@ char	*ft_realloc_content(char *line, char *buffer)
 	
 	i = 0;
 	j = 0;
-	while (buffer[i])
-		i++;
-	while (line[j])
-		j++;	
+	if (line)
+		while (line[i])
+			i++;	
+	while (buffer[j])
+		j++;
 	if (!(new_str =(char *)malloc( (i + j + 1) * sizeof(char))))
 		return (NULL);	
-	while (*line)
-		*new_str++ = *line++;
+	if (line)
+		while (*line)
+			*new_str++ = *line++;
 	while (*buffer)
 		*new_str++ = *buffer++; 
 	*new_str = '\0';
 	return (new_str - i - j);
 }
 
-void	ft_cut_line(char *buffer, char **line, char *remain_str)
+char	*ft_cut_line(char *buffer, char **line)
 {
 	int i;
+	int j;
 
 	i = 0;
+	j = 0;	
 	buffer = ft_realloc_content(*line, buffer);
 	while (buffer[i] != '\n')
 		i++;
-	buffer[i] = '\0';
+	while (buffer[j])
+		j++;
+	if (j < i)
+		buffer[0] = '\0';
+	else	
+		buffer[i] = '\0';
 	*line = ft_realloc_content(buffer, "");	
 	buffer = &buffer[i + 1];
-	while (*buffer)
-		//chequear por qué esta linea no funciona bien con remain. si
-		//lo pongo como contador me salta unos caracteres
-		*remain_str++ = *buffer++;	
-	*remain_str = '\0';
+	return (ft_realloc_content(buffer, ""));
 } 
