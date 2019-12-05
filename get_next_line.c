@@ -18,18 +18,20 @@ static	void	ft_free_memory(char **p)
 	free(*p);
 }
 
-static int	ft_remain(char **remain_str, char *buffer, char **line)
+static int	ft_remain(char **remain_str, char **buffer, char **line)
 {
 	if (*line)
 	{
 		if (ft_analyse(*remain_str))
 		{
-			*remain_str = ft_cut_line(buffer, line);	
+			*remain_str = ft_cut_line(*buffer, line);	
+			ft_free_memory(buffer);
 			return (1);
 		}
 		else if (**line)
 		{
 			*line = ft_realloc_content(*line, "");
+			ft_free_memory(buffer);
 			ft_free_memory(remain_str);		
 		}
 	}	
@@ -64,12 +66,10 @@ int	get_next_line(int fd, char **line)
 	rd_status = 0;
 	if(!(buffer = malloc((BUFFER_SIZE + 1) * sizeof(char))))
 		return (-1);
-	*buffer = '\0';
 	while ((rd_status = read(fd, buffer, BUFFER_SIZE)) > 0)
 		if (ft_keep_reading(rd_status, buffer, &remain_str[fd], line))
 			return (1);
-	ft_free_memory(&buffer);
 	if (rd_status < 0)
 		return (-1);
-	return (ft_remain(&remain_str[fd], buffer, line));
+	return (ft_remain(&remain_str[fd], &buffer, line));
 }
