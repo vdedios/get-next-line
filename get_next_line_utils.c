@@ -57,6 +57,8 @@ char	*ft_cut_line(char *buffer, char **line)
 	int i;
 
 	i = 0;
+	if (!buffer)
+		buffer = ft_realloc_content(*line, "");
 	buffer = ft_realloc_content(*line, buffer);
 	while (buffer[i] != '\n')
 		i++;
