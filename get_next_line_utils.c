@@ -55,18 +55,12 @@ char	*ft_realloc_content(char *line, char *buffer)
 char	*ft_cut_line(char *buffer, char **line)
 {
 	int i;
-	int j;
 
 	i = 0;
-	j = 0;	
 	buffer = ft_realloc_content(*line, buffer);
 	while (buffer[i] != '\n')
 		i++;
-	while (buffer[j])
-		j++;
 	buffer[i] = '\0';
 	*line = ft_realloc_content(buffer, "");	
-	if (j - 1 ==  i)
-		return (ft_realloc_content("", ""));
 	return (ft_realloc_content(&buffer[i + 1], ""));
 } 
