@@ -12,45 +12,39 @@
 
 #include "get_next_line.h"
 
-static	void	ft_free_memory(char **p)
-{
-	*p = NULL;
-	free(*p);
-}
-
-static int	ft_remain(char **remain_str, char **buffer, char **line)
+static int	ft_remain(char **remain_str, char **line)
 {
 	if (*line)
 	{
-		if (ft_analyse(*remain_str))
+		if (ft_analyse(*line))
 		{
-			*remain_str = ft_cut_line(*buffer, line);	
-			ft_free_memory(buffer);
+			ft_free_memory(remain_str);
+			*remain_str = ft_cut_line("", line);
 			return (1);
 		}
-		else if (**line)
-		{
-			*line = ft_realloc_content(*line, "");
-			ft_free_memory(buffer);
-			ft_free_memory(remain_str);		
-		}
-	}	
+	}
 	else
 		*line = ft_realloc_content("", "");
+	ft_free_memory(remain_str);	
 	return (0);
 }
 
 static	int	ft_keep_reading(ssize_t rd_status, char *buffer, 
-	char **remain_str, char **line)
+		char **remain_str, char **line)
 {
+	char *aux_free;
+
 	buffer[rd_status] = '\0';
 	if (ft_analyse(buffer))
 	{
+		ft_free_memory(remain_str);
 		*remain_str = ft_cut_line(buffer, line);
 		ft_free_memory(&buffer);
 		return (1);
 	}
+	aux_free = *line;
 	*line = ft_realloc_content(*line, buffer);
+	ft_free_memory(&aux_free);
 	return (0);
 }
 
@@ -62,14 +56,15 @@ int	get_next_line(int fd, char **line)
 
 	if (!line)
 		return (-1);
-	*line = remain_str[fd];
+	*line = ft_realloc_content(remain_str[fd], "");
 	rd_status = 0;
 	if(!(buffer = malloc((BUFFER_SIZE + 1) * sizeof(char))))
 		return (-1);
 	while ((rd_status = read(fd, buffer, BUFFER_SIZE)) > 0)
 		if (ft_keep_reading(rd_status, buffer, &remain_str[fd], line))
 			return (1);
+	ft_free_memory(&buffer);
 	if (rd_status < 0)
 		return (-1);
-	return (ft_remain(&remain_str[fd], &buffer, line));
+	return (ft_remain(&remain_str[fd], line));
 }
