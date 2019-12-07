@@ -3,7 +3,6 @@
 
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdio.h>
 #include <fcntl.h>
 
 int	get_next_line(int fd, char **line);
